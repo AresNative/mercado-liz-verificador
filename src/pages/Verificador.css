@@ -1,0 +1,114 @@
+/* styles.css */
+
+/* Estilos para centrar y alinear los elementos */
+.ion-text-center {
+    text-align: center;
+}
+
+/* Estilo para la tarjeta principal */
+.ion-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del encabezado de la tarjeta */
+.ion-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+/* Contenido de la tarjeta */
+.ion-card-content {
+    padding: 1rem 1.5rem;
+}
+
+/* Estilo para el input y botón */
+IonInput {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+IonButton {
+    margin-top: 1rem;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Estilo para la imagen del producto */
+.product-image {
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Contenedor de la información del producto */
+.product-info {
+    padding: 1rem;
+    text-align: left;
+    background-color: #eaffea;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+/* Información adicional del producto */
+.product-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-info p {
+    margin: 0.5rem 0;
+}
+
+/* Estilo del badge */
+ion-badge {
+    margin-top: 1rem;
+    font-size: 1rem;
+    display: inline-block;
+}
+
+/* Estilos del SVG del mapa */
+.store-map {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin: 1rem auto;
+    border: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+/* Texto dentro del mapa */
+.store-map text {
+    font-size: 0.5rem;
+    fill: #333;
+}
+
+/* Ubicación destacada del producto en el mapa */
+.store-map circle {
+    fill: red;
+}
+
+.store-map text.product-name {
+    font-size: 0.5rem;
+    fill: #333;
+}
+
+/* Estilo para el mensaje de error */
+.error-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #ffe5e5;
+    color: #d8000c;
+    border-radius: 8px;
+}

@@ -28,10 +28,11 @@ import '@ionic/react/css/display.css';
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+/* import '@ionic/react/css/palettes/dark.system.css'; */
 
 /* Theme variables */
 import './theme/variables.css';
+import VerificadorPreciosAvanzado from './pages/Verificador';
 
 setupIonicReact();
 
@@ -44,6 +45,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
+        </Route>
+        <Route exact path="/verify">
+          <VerificadorPreciosAvanzado />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
