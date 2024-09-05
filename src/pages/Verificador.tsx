@@ -37,7 +37,6 @@ const productosSimulados: Record<string, Producto> = {
         cantidad: 30,
         area: "Ropa",
         tipoVenta: "Unidad",
-        ubicacion: { x: 70, y: 40 },
         enAlmacen: false,
     },
     "003": {
@@ -59,7 +58,7 @@ type Producto = {
     cantidad: number;
     area: string;
     tipoVenta: string;
-    ubicacion: { x: number; y: number };
+    ubicacion?: { x: number; y: number };
     enAlmacen: boolean;
 };
 
@@ -126,7 +125,7 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                                 </div>
                                 <div className="ion-margin-top">
                                     <h4>Ubicación en la tienda</h4>
-                                    <svg
+                                    {resultado.ubicacion &&(<svg
                                         width="200"
                                         height="200"
                                         viewBox="0 0 100 100"
@@ -143,20 +142,20 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                                             Almacén
                                         </text>
                                         <circle
-                                            cx={resultado.ubicacion.x}
-                                            cy={resultado.ubicacion.y}
+                                            cx={resultado.ubicacion!.x}
+                                            cy={resultado.ubicacion!.y}
                                             r="5"
                                             fill="red"
                                         />
                                         <text
-                                            x={resultado.ubicacion.x + 2}
-                                            y={resultado.ubicacion.y - 2}
+                                            x={resultado.ubicacion!.x + 2}
+                                            y={resultado.ubicacion!.y - 2}
                                             fontSize="4"
                                             fill="#333"
                                         >
                                             {resultado.nombre}
                                         </text>
-                                    </svg>
+                                    </svg>)}
                                 </div>
                             </div>
                         )}
