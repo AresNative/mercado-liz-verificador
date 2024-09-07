@@ -32,31 +32,36 @@
 }
 
 .card-resultado{
-    position: absolute;
-    left: 50%;
-    top: 55%;
-    transform: translate(-50%, -50%);
     z-index: 200;
+    right: 50%;
+    transform: translateX(50%);
+    position:absolute;
 }
 
-@media (max-width: 440px) {
-    .card-resultado {
-            position: absolute;
-            left: 50%;
-            top: 60%;
-            transform: translate(-50%, -50%);
-            z-index: 200;
-        }
-}
-@media (max-width: 340px) {
-    .card-resultado {
-        position: absolute;
-        left: 50%;
-        top: 65%;
-        transform: translate(-50%, -50%);
-        z-index: 200;
+@media (min-width:720px){   
+    .card-resultado{
+        bottom: 30%;
     }
 }
+@media (max-width:450px){
+    .card-resultado{
+        bottom: 20%;
+    }
+    
+}
+@media (max-width:380px) {
+    .card-resultado{
+        bottom: -5%;
+    }
+    
+}
+
+
+
+
+
+
+
 /* Contenido de la tarjeta */
 .ion-card-content {
     padding: 1rem 1.5rem;

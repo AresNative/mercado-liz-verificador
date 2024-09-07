@@ -10,7 +10,7 @@ interface ContainerProps { children:React.ReactNode, titulo?:string}
       <IonHeader >
         <IonToolbar>
           <IonTitle>
-{titulo}
+            {titulo}
           </IonTitle>
         </IonToolbar>
       </IonHeader>
