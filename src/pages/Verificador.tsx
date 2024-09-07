@@ -11,10 +11,14 @@ import {
     IonInput,
     IonButton,
     IonText,
+
+
     IonToolbar,
 } from "@ionic/react";
 import './Verificador.css';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import PageBase from "@/components/templates/page-base";
+
 
 // Simulación de una base de datos de productos mejorada
 const productosSimulados: Record<string, Producto> = {
@@ -89,22 +93,9 @@ const VerificadorPreciosAvanzado: React.FC = () => {
     };
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle className="ion-title">Verificador</IonTitle>
-                </IonToolbar>
-            </IonHeader>
 
-            <IonContent className="ion-padding" fullscreen>
-
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle className="ion-title">Verificador</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-
-                <IonCard>
+        <PageBase titulo="Verificador">
+                <IonCard className="ion-card">
                     <IonCardHeader>
                         <IonCardTitle className="ion-text-center">
                             Escanee producto
@@ -133,7 +124,7 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                 </IonCard>
 
                 {resultado && (
-                    <IonCard>
+                    <IonCard className="ion-card card-resultado">
                         <IonCardContent className="ion-padding">
                             <div className="ion-text-center">
                                 <span className="product-info-h3">{resultado.nombre}</span>
@@ -155,9 +146,11 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                         {error}
                     </IonText>
                 )}
-            </IonContent>
-        </IonPage>
+        </PageBase>
+
     );
 };
 
 export default VerificadorPreciosAvanzado;
+
+
