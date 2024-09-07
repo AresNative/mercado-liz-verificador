@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import {
-    IonPage,
-    IonHeader,
-    IonTitle,
-    IonContent,
     IonCard,
     IonCardHeader,
     IonCardTitle,
@@ -11,15 +7,12 @@ import {
     IonInput,
     IonButton,
     IonText,
-
-
-    IonToolbar,
 } from "@ionic/react";
 import './Verificador.css';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import PageBase from "@/components/templates/page-base";
 
-
+import { Keyboard } from '@capacitor/keyboard';
 
 type Producto = {
     nombre: string;
@@ -31,6 +24,9 @@ type FormValues = {
     barr_code: string;
 };
 const VerificadorPreciosAvanzado: React.FC = () => {
+
+    Keyboard.hide();
+
     const [resultado, setResultado] = useState<Producto | null>(null);
     const [error, setError] = useState<string>("");
 
@@ -105,6 +101,7 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                                 <IonInput
                                     placeholder="Escanee el código del producto"
                                     value={field.value}
+                                    onIonFocus={(e) => e.preventDefault()}
                                     onIonInput={(e: any) => field.onChange(e.detail.value)}
                                 />
                             )}
