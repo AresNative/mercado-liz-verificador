@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 
@@ -44,3 +44,13 @@ export default function BarcodeScanner() {
         </div>
     );
 };
+/*   
+    background-color: #ffffff;
+    color: #09090b;
+    border-width: 1px;
+    border-radius: 0.5rem;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --tw-ring-shadow: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+*/

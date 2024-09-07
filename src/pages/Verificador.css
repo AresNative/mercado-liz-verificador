@@ -1,36 +1,38 @@
 /* styles.css */
 
 /* Estilos para centrar y alinear los elementos */
+
+.ion-title{
+    font-size: xx-large;
+    font-weight: 600;
+    font-style: oblique;
+    text-align: center;
+    color: #A65F8D;
+}
 .ion-text-center {
     text-align: center;
-    font-weight: lighter;
-    margin-bottom: 25px;
-    
 
 }
 
 /* Estilo para la tarjeta principal */
-.ion-card {
-    max-width: 600px auto;
-    padding: 2.5rem;
-    border-radius: 10px; 
-    margin-bottom: 1rem;
-  
-    
+.ion-card { 
+  margin: auto;
+  margin-top: 2rem;
+    padding:1.5rem;
+    width: 85% ;
+    background-color: #ffffff;
+    color: #09090b;
+    border: 1px solid #ecebeb;
+    border-radius: 0.5rem;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --tw-ring-shadow: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-/* Estilo del encabezado de la tarjeta */
-.ion-card-title {
-    font-size: 3rem;
-    border: 1rem;
-    font-weight: lighter;
-    font-style: oblique;
-    text-align: center;
-    color:  #A65F8D;
-    background-color: #F2F2F7;
-    padding:25px 0 25px 0;
-    margin-bottom: 1rem;
-  
+.card-resultado{
+    position: absolute;
+    z-index: 200;
 }
 
 /* Contenido de la tarjeta */
@@ -48,14 +50,7 @@ ion-input {
     border: 1px solid ;
     border-radius: 4px;
     background: #f2f4f5;
-    
-}
 
-ion-button {
-    margin-top: 1rem;
-   
-    --color: ;
- 
 }
 
 /* Contenedor de la información del producto */
@@ -70,27 +65,14 @@ ion-button {
 
 /* Información adicional del producto */
 .product-info-h3 {
-    font-size:  3rem;
+    font-size:  xx-large;
     margin-bottom: 0.5rem;
-   
-}
-
-.product-info p {
-    margin: 0.5rem 0;
-    
-}
-
-/* Estilo del badge */
-ion-badge {
-    margin-top: 1rem;
-    font-size: 1rem;
-    display: inline-block;
+    font-weight: 600;
 }
 
 .precio-oferta {
-    font-size: 2.5rem !important;
+    font-size: xx-large !important;
     color:#A65F8D ;
-
 }
 
 
@@ -102,3 +84,4 @@ ion-badge {
     color: #d8000c;
     border-radius: 8px;
 }
+
