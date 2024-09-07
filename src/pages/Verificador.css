@@ -4,7 +4,7 @@
 .ion-text-center {
     text-align: center;
     font-weight: lighter;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
     
 
 }
@@ -15,7 +15,7 @@
     padding: 2.5rem;
     border-radius: 10px; 
     margin-bottom: 1rem;
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+  
     
 }
 
@@ -54,7 +54,7 @@ ion-input {
 ion-button {
     margin-top: 1rem;
    
-    color: #fff;
+    --color: ;
  
 }
 

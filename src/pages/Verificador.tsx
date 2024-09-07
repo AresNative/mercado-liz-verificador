@@ -15,8 +15,12 @@ import {
     IonButton,
     IonBadge,
     IonText,
+    IonGrid,
+    IonRow,
+    IonCol,
 } from "@ionic/react";
 import './Verificador.css'
+import PageBase from "@/components/templates/page-base";
 
 // Simulación de una base de datos de productos mejorada
 const productosSimulados: Record<string, Producto> = {
@@ -65,54 +69,22 @@ const VerificadorPreciosAvanzado: React.FC = () => {
     };
 
     return (
-        <IonPage>
+        
+<PageBase>
+    <></>
+</PageBase>
 
-            <IonHeader className="ion-card">
 
-                    <IonTitle className="ion-card-title">Verificador  </IonTitle>
-               
-            </IonHeader>
-            <IonContent className="ion-padding">
-                <IonCard>
-                    <IonCardHeader className="ion-card-content">
-                        <IonCardTitle className="ion-text-center">
-                            Escanee producto
-                        </IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent >
-                       
-                            <IonInput 
-                                value={codigo}
-                                placeholder="Escanee el código del producto"
-                                onIonChange={(e) => setCodigo(e.detail.value!)}
-                            />
-                     
-                        <IonButton expand="block" color={"primary"} onClick={verificarPrecio}>
-                            Verificar Precio
-                        </IonButton>
-                        {resultado && (
-                            <div className="ion-padding">
-                                <div className="ion-text-center">
-                                   
-                                    <span className="product-info-h3">{resultado.nombre}</span>
-                                    <p >Precio regular: ${(resultado.precioTotal.toFixed(2))}</p>
-                                    <p className="precio-oferta"> Precio Oferta: ${(resultado.precioOferta.toFixed(2))}</p>
-                                    
-                                    
-                                </div>
-                               
-                            </div>
-                        )}
-                        {error && (
-                            <IonText color="danger" className="ion-padding">
-                                {error}
-                            </IonText>
-                        )}
-                    </IonCardContent>
-                </IonCard>
-            </IonContent>
-        </IonPage>
+
+
+
+
+
+
+
     );
 };
 
 export default VerificadorPreciosAvanzado;
+
+
