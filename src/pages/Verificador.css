@@ -11,19 +11,58 @@
 }
 .ion-text-center {
     text-align: center;
+
 }
 
 /* Estilo para la tarjeta principal */
-.ion-card {
-    padding: 2.5rem;
-    border-radius: 14px;    
+.ion-card { 
+  margin: auto;
+  margin-top: 2rem;
+    padding:1.5rem;
+    width: 85% ;
+    background-color: #ffffffa2;
+    color: #09090b;
+    border: 1px solid #ecebeb;
+    border-radius: 0.5rem;
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --tw-ring-shadow: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
 }
 
+.card-resultado{
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+}
+
+@media (max-width: 440px) {
+    .card-resultado {
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            z-index: 200;
+        }
+}
+@media (max-width: 340px) {
+    .card-resultado {
+        position: absolute;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, -50%);
+        z-index: 200;
+    }
+}
 /* Contenido de la tarjeta */
 .ion-card-content {
     padding: 1rem 1.5rem;
     margin : 1rem auto;;
     font-size: 2rem;
+
 }
 
 /* Estilo para el input y botón */
@@ -34,8 +73,9 @@ ion-input {
     border: 1px solid ;
     border-radius: 4px;
     background: #f2f4f5;
-    
+
 }
+
 /* Contenedor de la información del producto */
 .product-info {
     padding: 1rem;
@@ -67,3 +107,4 @@ ion-input {
     color: #d8000c;
     border-radius: 8px;
 }
+

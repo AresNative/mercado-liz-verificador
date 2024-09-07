@@ -1,0 +1,75 @@
+/* styles.css para plantilla de vericador*/
+
+
+.ion-text-center {
+  text-align: center;
+  font-weight: lighter;
+  margin-bottom: 5px;
+}
+
+/*Estilo de imagen logo ML*/
+.imglogo {
+  left: 0;
+  top:0;
+  transform: rotate(10deg);
+  width: 7rem;
+  position: absolute;
+  z-index: 100;  
+  }
+
+  /*Especificaciones imgenes */
+.imgdetalles {
+  position: absolute;
+  z-index: 100;
+  filter: drop-shadow(15px 5px 2px #F2F2F7);
+  }
+  
+  /*Estilo uva lado derecho superior*/
+.uva1{
+    transform: rotate(80deg);
+    right: 0;
+    top: 60px;
+    height: 6rem;
+    opacity: 0.8;
+    
+  }
+  /*Estilo uva lado derecho inferior*/
+.uva2{
+    transform: rotate(15deg);
+    top:80%;
+    right: 0;
+    height: 10rem;
+    opacity: 0.8;
+  }
+ /*Estilo uva centro*/
+.uva3{
+    height: 17rem;
+    transform: rotate(15deg);
+    top:80;
+    left: 8rem ;
+    opacity: 0.5;
+  }
+
+  .iontitle {
+    font-size: 3rem;
+    border: 0.5rem;
+    font-weight: lighter;
+    font-style: oblique;
+    text-align: center;
+    color:  #A65F8D;
+    padding:25px 0 25px 0;
+    margin-bottom: 2rem;
+  }
+
+  @media(max-width: 380px  ) {
+    .imglogo {display:none}
+  }
+  @media(max-width: 400px  ) {
+    .uva1 {display:none}
+  }
+  @media(max-width: 140px  ) {
+    .uva2 {display:none}
+  }
+  @media(max-width: 380px  ) {
+    .uva3 {display:none}
+  }
