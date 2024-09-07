@@ -16,23 +16,6 @@ import {
 import './Verificador.css';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-// Simulación de una base de datos de productos mejorada
-const productosSimulados: Record<string, Producto> = {
-    "001": {
-        nombre: "Camiseta",
-        precioTotal: 19,
-        precioOferta: 12.05
-    },
-    "002": {
-        nombre: "Pantalón",
-        precioTotal: 39.99,
-        precioOferta: 10
-    },
-    "003": {
-        nombre: "Zapatos",
-        precioTotal: 10.10,
-    },
-};
 
 type Producto = {
     nombre: string;
@@ -56,32 +39,44 @@ const VerificadorPreciosAvanzado: React.FC = () => {
         mode: "onSubmit"
     });
 
-    async function GetDataCode(params: any) {
-        try {
-            const response = await fetch("http://localhost:3000/get/cb", {
-                method: 'POST',
-                headers: {},
-                body: JSON.stringify({
-                    code: '000250'
-                })
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result);
+    async function GetDataCode(codigo: any) {
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        } catch (err) {
-            console.error(err);
-        }
+        };
+
+        fetch(`https://us-west-2.aws.data.mongodb-api.com/app/data-cjvkngm/endpoint/get/cb?Codigo=${codigo}`, options)
+            .then(response => response.json())
+            .then(response => {
+                console.log({
+                    nombre: response.data.art[0].Descripcion1,
+                    precioTotal: response.data.listaPreciosDUnidad[0].Precio,
+                    precioOferta: response.data.listaPreciosDUnidad[0].Precio,
+                });
+
+                setResultado({
+                    nombre: response.data.art[0].Descripcion1,
+                    precioTotal: response.data.listaPreciosDUnidad[0].Precio,
+
+                    precioOferta: response.data.listaPreciosDUnidad[0].Precio,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                setError("Ocurrió un error al obtener los datos.");
+            });
     }
+
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         setError("");
         setResultado(null);
+        console.log(data);
 
-        if (data.barr_code in productosSimulados) {
+        if (data.barr_code) {
             GetDataCode(data.barr_code)
-            //setResultado(productosSimulados[data.barr_code]);
         } else {
             setError("Producto no encontrado");
         }
@@ -97,7 +92,6 @@ const VerificadorPreciosAvanzado: React.FC = () => {
             </IonHeader>
 
             <IonContent className="ion-padding" fullscreen>
-
                 <IonHeader collapse="condense">
                     <IonToolbar>
                         <IonTitle className="ion-title">Verificador</IonTitle>
@@ -142,7 +136,7 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                                 </p>
                                 {resultado.precioOferta && (
                                     <p className="precio-oferta">
-                                        Precio de Oferta: ${resultado.precioOferta.toFixed(2)}
+                                        Precio de Oferta: <span style={{ fontWeight: "800", fontSize: "3rem" }}>${resultado.precioOferta.toFixed(2)}</span>
                                     </p>
                                 )}
                             </div>
