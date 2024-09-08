@@ -17,7 +17,7 @@
     "@capacitor/core": "6.1.2",
     "@capacitor/filesystem": "^6.0.1",
     "@capacitor/haptics": "6.0.1",
-    "@capacitor/keyboard": "6.0.2",
+    "@capacitor/keyboard": "^6.0.2",
     "@capacitor/preferences": "^6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@ionic/pwa-elements": "^3.3.0",
@@ -56,6 +56,5 @@
     "vitest": "^0.34.6"
   },
   "description": "An Ionic project",
-
   "proxy": "http://localhost:3000"
 }
