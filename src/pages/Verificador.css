@@ -32,13 +32,59 @@
 }
 
 .card-resultado{
-    z-index: 200;
-    right: 50%;
-    transform: translateX(50%);
-    position:absolute;
+    z-index: 150;
+    -webkit-animation: slide-bottom 1s   ;
+    animation: slide-bottom 1s   ;
+   
 }
 
-@media (min-width:720px){   
+
+.ion-padding {
+    margin-top: 5rem;
+    width: 85%;
+      padding:1.5rem;
+      background-color: #ffffffa2;
+      color: #09090b;
+      border: 1px solid #ecebeb;
+      border-radius: 0.5rem;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --tw-ring-shadow: 0 0 #0000;
+      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.animacion-salida {
+    -webkit-animation: slide-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both ;
+    animation: slide-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both ;
+}
+
+@-webkit-keyframes slide-bottom {
+    0% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px) ;
+
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-bottom {
+    0% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+  
+  
+  
+
+/* @media (min-width:720px){   
     .card-resultado{
         bottom: 30%;
     }
@@ -54,7 +100,7 @@
         bottom: -5%;
     }
     
-}
+} */
 
 
 
@@ -65,8 +111,10 @@
 /* Contenido de la tarjeta */
 .ion-card-content {
     padding: 1rem 1.5rem;
-    margin : 1rem auto;;
+    margin : 3rem auto;
+    left: 7.5%;
     font-size: 2rem;
+    position: absolute !important;
 
 }
 

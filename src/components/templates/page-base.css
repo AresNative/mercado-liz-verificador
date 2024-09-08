@@ -12,14 +12,14 @@
   left: 0;
   top:0;
   transform: rotate(10deg);
-  width: 7rem;
+  width: 7.5rem;
   position: absolute;
   z-index: 100;  
   }
 
   /*Especificaciones imgenes */
 .imgdetalles {
-  position: absolute;
+  position: absolute !important;
   z-index: 100;
   filter: drop-shadow(15px 5px 2px #F2F2F7);
   }
@@ -48,6 +48,7 @@
     top:80;
     left: 8rem ;
     opacity: 0.5;
+     position: absolute !important;
   }
 
   .iontitle {

@@ -118,8 +118,8 @@ const VerificadorPreciosAvanzado: React.FC = () => {
             </IonCard>
 
             {resultado && (
-                <IonCard className="ion-card card-resultado ">
-                    <IonCardContent className="ion-padding">
+                <IonCard className="ion-card-content ion-padding card-resultado  ">
+                    <IonCardContent className="animacion-salida">
                         <div className="ion-text-center">
                             <span className="product-info-h3">{resultado.nombre}</span>
                             <p className={resultado.precioOferta ? "" : "precio-oferta"}>
