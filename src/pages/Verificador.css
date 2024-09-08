@@ -20,7 +20,7 @@
   margin-top: 2rem;
     padding:1.5rem;
     width: 85% ;
-    background-color: #ffffffa2;
+    background-color: #ffffff;
     color: #09090b;
     border: 1px solid #ecebeb;
     border-radius: 0.5rem;
@@ -28,46 +28,20 @@
     --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --tw-ring-shadow: 0 0 #0000;
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-
 }
 
 .card-resultado{
+    position: absolute;
     z-index: 200;
     right: 50%;
     transform: translateX(50%);
-    position:absolute;
 }
-
-@media (min-width:720px){   
-    .card-resultado{
-        bottom: 30%;
-    }
-}
-@media (max-width:450px){
-    .card-resultado{
-        bottom: 20%;
-    }
-    
-}
-@media (max-width:380px) {
-    .card-resultado{
-        bottom: -5%;
-    }
-    
-}
-
-
-
-
-
-
 
 /* Contenido de la tarjeta */
 .ion-card-content {
     padding: 1rem 1.5rem;
     margin : 1rem auto;;
     font-size: 2rem;
-
 }
 
 /* Estilo para el input y botón */

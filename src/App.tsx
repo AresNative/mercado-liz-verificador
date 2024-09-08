@@ -50,7 +50,7 @@ const App: React.FC = () => (
           <VerificadorPreciosAvanzado />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/verify" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
