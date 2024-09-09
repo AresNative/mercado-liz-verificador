@@ -18,6 +18,7 @@
 .ion-card { 
   margin: auto;
   margin-top: 2rem;
+  margin-bottom: 2rem;
     padding:1.5rem;
     width: 85% ;
     background-color: #ffffffa2;
@@ -35,7 +36,7 @@
     z-index: 150;
     -webkit-animation: slide-bottom 1s   ;
     animation: slide-bottom 1s   ;
-   
+
 }
 
 
@@ -154,10 +155,13 @@ ion-input {
 
 /* Estilo para el mensaje de error */
 .error-message {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: #ffe5e5;
-    color: #d8000c;
+    position: absolute;
+    margin: auto ;
+    width: 85%;
+    padding: 0.5rem;
+    background-color: #ffd2d2;
+    color: #ff0000;
     border-radius: 8px;
+  
 }
 
