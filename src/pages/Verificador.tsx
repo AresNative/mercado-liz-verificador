@@ -71,8 +71,8 @@ const VerificadorPreciosAvanzado: React.FC = () => {
 
                 const dataProducto = data.listaPreciosDUnidad.filter((item: any) => {
                     return (
-                        item.Lista === `(Precio ${sucursal})` &&         // Filtrar por la lista de precios '(PRECIO 2)'
-                        cbItem.Codigo === `${codigo}` &&         // Verificar que el Código CB sea 'P006051' | '008802'
+                        item.Lista === `(Precio ${sucursal})` &&  // Filtrar por la lista de precios '(PRECIO 2)'
+                        cbItem.Codigo === `${codigo}` &&  // Verificar que el Código CB sea 'P006051' | '008802'
                         cbItem.Unidad === item.Unidad  // Verificar que CB.Unidad coincida con la unidad en listaPreciosDUnidad
                     );
                 });
@@ -92,14 +92,14 @@ const VerificadorPreciosAvanzado: React.FC = () => {
                     if (precioOferta.length > 0)
                         setResultado({
                             nombre: artItem ? artItem.Descripcion1 : 'Descripción no disponible', // Descripción del artículo si está disponible
-                            precioTotal: precioSeleccionado,       // Precio filtrado
-                            precioOferta: precioOferta[0].Precio     // Oferta (puedes cambiar esto si la lógica es distinta)
+                            precioTotal: precioSeleccionado, // Precio filtrado
+                            precioOferta: precioOferta[0].Precio // Oferta (puedes cambiar esto si la lógica es distinta)
 
                         });
                     else
                         setResultado({
-                            nombre: artItem ? artItem.Descripcion1 : 'Descripción no disponible', // Descripción del artículo si está disponible
-                            precioTotal: precioSeleccionado,       // Precio filtrado
+                            nombre: artItem ? artItem.Descripcion1 : 'Descripción no disponible',
+                            precioTotal: precioSeleccionado,
                         });
                 } else {
                     setError("No se encontraron precios para la lista '(PRECIO 2)' con el Código y Unidad especificados.");
