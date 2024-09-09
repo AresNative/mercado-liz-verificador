@@ -192,7 +192,7 @@ const VerificadorPreciosAvanzado: React.FC = () => {
             )}
 
             {error && (
-                <IonText color="danger" className="ion-padding">
+                <IonText color="danger" className="error-message ion-card-content card-resultado">
                     {error}
                 </IonText>
             )}
