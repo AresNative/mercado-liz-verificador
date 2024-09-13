@@ -8,10 +8,11 @@
     font-style: oblique;
     text-align: center;
     color: #A65F8D;
+    background-color: #0000;
+    border: 1px;
 }
 .ion-text-center {
     text-align: center;
-
 }
 
 /* Estilo para la tarjeta principal */
