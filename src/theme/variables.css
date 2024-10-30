@@ -1,6 +1,10 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root{
 
     --ion-color-primary: #A65F8D;
