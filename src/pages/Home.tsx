@@ -178,7 +178,7 @@ export default function VerificadorPrecio() {
             </div>
             <div className="border p-2 rounded w-full md:flex-1">
               <IonList className="p-2">
-                {ofertas.map((data, index) => (
+                {ofertas.map((data: any, index) => (
                   <IonItem key={index} className="text-sm text-gray-600 md:text-base">
                     ${data.precioTotal}
                   </IonItem>
