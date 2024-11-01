@@ -21,6 +21,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import '@/theme/variables.css';
+import ListaArticulos from './pages/List';
 
 setupIonicReact({
   mode: 'ios'
@@ -32,6 +33,9 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
+        </Route>
+        <Route exact path="/list">
+          <ListaArticulos />
         </Route>
 
         <Route exact path="/">

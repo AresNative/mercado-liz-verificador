@@ -108,7 +108,7 @@ export default function VerificadorPrecio() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-gray-100 min-h-screen min-w-screen">
       <IonCard className="w-full max-w-3xl mx-auto mt-4 md:mt-8">
         <IonCardHeader>
           <IonCardTitle className="text-2xl font-bold text-center md:text-3xl">
