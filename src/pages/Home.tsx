@@ -27,6 +27,7 @@ export default function VerificadorPrecio() {
   const [precio, setPrecio] = useState<string>("$0.00");
   const [nombre, setNombre] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [Sucursal, setSucursal] = useState<string>("(Precio 2)");
   const [unidad, setUnidad] = useState();
   const [ofertas, setOfertas] = useState([])
 
@@ -36,13 +37,16 @@ export default function VerificadorPrecio() {
       codigoBarras: ""
     }
   });
-
+  const loadSucursal = (ev: any) => {
+    const value = ev.detail.value;
+    setSucursal(value)
+  }
   // Obtener datos de la API
   const GetDataCode = async (codigo: string) => {
     setError("");
 
     try {
-      const response = await fetch(`http://matrizmercadoliz.dyndns.org:29010/api/Precios?filtro=${codigo}`, {
+      const response = await fetch(`https://api.mercadosliz.com/api/Precios?filtro=${codigo}&Sucursal=${Sucursal}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -108,7 +112,7 @@ export default function VerificadorPrecio() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100 min-h-screen min-w-screen">
+    <div className="mx-auto flex items-center bg-gray-100 min-h-screen min-w-screen">
       <IonCard className="w-full max-w-3xl mx-auto mt-4 md:mt-8">
         <IonCardHeader>
           <IonCardTitle className="text-2xl font-bold text-center md:text-3xl">
@@ -123,11 +127,18 @@ export default function VerificadorPrecio() {
               <span className="font-semibold text-base md:text-lg">Escanear código de barras</span>
               <div className="ml-auto w-40">
                 <IonItem>
-                  <IonSelect slot="end" aria-label="Sucursal" placeholder="Sucursal" multiple={true}>
-                    <IonSelectOption value="apples">Apples</IonSelectOption>
-                    <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                    <IonSelectOption value="bananas">Bananas</IonSelectOption>
-                    <IonSelectOption value="bananas">Bananas</IonSelectOption>
+                  <IonSelect
+                    slot="end"
+                    aria-label="(Precio 2)"
+                    placeholder="Sucursal"
+                    multiple={false}
+                    onIonChange={loadSucursal}
+                    value={Sucursal}
+                  >
+                    <IonSelectOption value="(Precio 3)">Testeraso</IonSelectOption>
+                    <IonSelectOption value="(Precio 2)">Guadalupe</IonSelectOption>
+                    <IonSelectOption value="(Precio 4)">Palmas</IonSelectOption>
+                    <IonSelectOption value="(Precio Lista)">Mayoreo</IonSelectOption>
                   </IonSelect>
                 </IonItem>
               </div>
@@ -179,7 +190,7 @@ export default function VerificadorPrecio() {
             <div className="border p-2 rounded w-full md:flex-1">
               <IonList className="p-2">
                 {ofertas.map((data: any, index) => (
-                  <IonItem key={index} className="text-sm text-gray-600 md:text-base">
+                  <IonItem key={index} className="text-2xl font-bold text-green-600">
                     ${data.precioTotal}
                   </IonItem>
                 ))}
