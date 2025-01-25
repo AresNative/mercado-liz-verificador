@@ -22,6 +22,8 @@ import '@ionic/react/css/display.css';
 
 import '@/theme/variables.css';
 import ListaArticulos from './pages/List';
+import BarcodeScanner from './components/functions/barr-code';
+import Test from './pages/Test';
 
 setupIonicReact({
   mode: 'ios'
@@ -34,8 +36,14 @@ const App: React.FC = () => (
         <Route exact path="/home">
           <Home />
         </Route>
+        <Route exact path="/code">
+          <BarcodeScanner />
+        </Route>
         <Route exact path="/list">
           <ListaArticulos />
+        </Route>
+        <Route exact path="/test">
+          <Test />
         </Route>
 
         <Route exact path="/">

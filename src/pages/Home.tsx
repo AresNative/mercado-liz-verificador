@@ -1,86 +1,95 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from 'react';
 import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonButton,
-  IonInput,
-  IonIcon,
-  IonText,
-  IonSpinner,
   IonBadge,
-  IonList,
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonItem,
+  IonList,
+  IonPage,
+  IonSearchbar,
   IonSelect,
-  IonSelectOption
-} from "@ionic/react";
-import { useForm, Controller } from "react-hook-form";
-import { pinOutline, barcode, pricetagOutline, search } from "ionicons/icons";
+  IonSelectOption,
+  IonSpinner,
+  IonToolbar,
+} from '@ionic/react';
+import { pinOutline, pricetagOutline, search } from 'ionicons/icons';
 
+function Test() {
+  const inputRef = useRef<HTMLIonSearchbarElement | null>(null);
 
-type FormValues = {
-  codigoBarras: string;
-};
+  const [results, setResults] = useState<any[]>([]);
+  const [query, setQuery] = useState('');
 
-export default function VerificadorPrecio() {
   const [precio, setPrecio] = useState<string>("$0.00");
-  const [nombre, setNombre] = useState<string>("");
+  const [nombre, setNombre] = useState<string>("Seleccione un artículo");
+  const [unidad, setUnidad] = useState<string | undefined>();
   const [error, setError] = useState<string>("");
-  const [Sucursal, setSucursal] = useState<string>("(Precio 2)");
-  const [unidad, setUnidad] = useState();
-  const [ofertas, setOfertas] = useState([])
+  const [sucursal, setSucursal] = useState<string>("(Precio 2)");
+  const [ofertas, setOfertas] = useState<any[]>([]);
+  const [page, setPage] = useState<number>(1);
 
-  const inputRef = useRef<HTMLIonInputElement | null>(null);
-  const { control, handleSubmit, setFocus, setValue, formState: { errors } } = useForm<FormValues>({
-    defaultValues: {
-      codigoBarras: ""
+  const handleInput = async (event: CustomEvent) => {
+    const value = event.detail.value ?? '';
+    setQuery(value);
+    setPage(1);
+    setResults([]);
+
+    if (value) {
+      await GetDataCode(value);
+    } else {
+      setResults([]);
     }
-  });
-  const loadSucursal = (ev: any) => {
-    const value = ev.detail.value;
-    setSucursal(value)
+  };
+
+  const handleSelect = (selectedValue: any) => {
+    setQuery(selectedValue.nombre);
+    setPrecio(`$${selectedValue.precioTotal.toFixed(2)}`);
+    setNombre(selectedValue.nombre);
+    setUnidad(selectedValue.unidad);
+    setResults([]);
+  };
+
+  async function loadDate(page: number, codigo: string, sucursal: string) {
+    const response = await fetch(
+      `https://api.mercadosliz.com:8080/api/Precios?filtro=${codigo}&page=${page}&Sucursal=${sucursal}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    return response;
   }
-  // Obtener datos de la API
+
   const GetDataCode = async (codigo: string) => {
     setError("");
-
     try {
-      const response = await fetch(`https://api.mercadosliz.com/api/Precios?filtro=${codigo}&Sucursal=${Sucursal}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await loadDate(page, codigo, sucursal);
 
       if (!response.ok) {
         throw new Error("Error en la respuesta del servidor");
       }
 
-      const data = await response.json();
+      const { precios = [], ofertas = [] } = await response.json();
 
-      // Filtrar precios
-      const precios = data.precios.map((precio: any) => ({
-        nombre: precio.descripcion1 || 'Descripción no disponible',
+      const preciosMapeados = precios.map((precio: any) => ({
+        nombre: precio.descripcion1 || "Descripción no disponible",
         precioTotal: precio.precio || 0,
-        unidad: precio.unidad
+        unidad: precio.unidad,
       }));
 
-      // Filtrar ofertas
-      const ofertas = data.ofertas.map((oferta: any) => ({
-        precioTotal: oferta.precio || 0,
-      }));
+      if (ofertas.length > 0) {
+        setOfertas(ofertas);
+      }
 
-      // Combinar precios y ofertas
-      const resultadosFiltrados = [...precios, ...ofertas];
-
-      if (resultadosFiltrados.length > 0) {
-        setPrecio(`$${precios[0].precioTotal.toFixed(2)}`);
-        setNombre(`${precios[0].nombre}`);
-        setUnidad(precios[0].unidad);
-        setOfertas(ofertas)
+      if (preciosMapeados.length >= 0) {
+        setResults((prev) => [...prev, ...preciosMapeados]);
       } else {
-        setError("No se encontraron precios ni ofertas para el código especificado.");
+        setError("No se encontraron precios para el código especificado.");
       }
     } catch (err) {
       console.error(err);
@@ -89,133 +98,171 @@ export default function VerificadorPrecio() {
       if (inputRef.current) {
         const nativeInput = await inputRef.current.getInputElement();
         nativeInput.focus();
-        nativeInput.select();
       }
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    if (data.codigoBarras) {
-      GetDataCode(data.codigoBarras);
-    } else {
-      setError("Por favor, ingrese un código de barras.");
+  const Search = (value: any) => {
+    //do something
+    console.log(value);
+
+    if (value == "Enter") {
+      console.log("Enter key pressed")
+      //SomeCode
+    }
+  }
+
+  const loadMore = (event: CustomEvent<void>) => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    try {
+      GetDataCode(query);
+    } finally {
+      (event.target as HTMLIonInfiniteScrollElement).complete();
     }
   };
+  function Clear() {
+    setQuery("");
+    setPrecio("$0.00");
+    setNombre("Seleccione un artículo");
+    setUnidad("");
+    setResults([]);
+  }
+  const loadSucursal = (event: CustomEvent) => {
+    const value = event.detail.value;
+    setSucursal(value);
+  };
+  const SearchF = async (value: any) => {
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.getInputElement().then((nativeInput) => {
-        nativeInput.focus();
-        nativeInput.select();
-      });
+    if (value == "Enter") {
+      setResults([]);
+      const response = await loadDate(1, query, sucursal);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta del servidor");
+      }
+
+      const { precios = [] } = await response.json();
+
+      const preciosMapeados = {
+        nombre: precios[0].descripcion1 || "Descripción no disponible",
+        precioTotal: precios[0].precio || 0,
+        unidad: precios[0].unidad,
+      };
+      console.log(preciosMapeados);
+      handleSelect(preciosMapeados)
     }
-  }, []);
-
+  }
   return (
-    <div className="mx-auto flex items-center bg-gray-100 min-h-screen min-w-screen">
-      <IonCard className="w-full max-w-3xl mx-auto mt-4 md:mt-8">
-        <IonCardHeader>
-          <IonCardTitle className="text-2xl font-bold text-center md:text-3xl">
-            Verificador de Precio
-          </IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent className="space-y-6">
-          {/* Formulario de escáner de código de barras */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-            <div className="flex items-center gap-2 w-full">
-              <IonIcon icon={barcode} className="h-6 w-6 text-gray-500" />
-              <span className="font-semibold text-base md:text-lg">Escanear código de barras</span>
-              <div className="ml-auto w-40">
-                <IonItem>
-                  <IonSelect
-                    slot="end"
-                    aria-label="(Precio 2)"
-                    placeholder="Sucursal"
-                    multiple={false}
-                    onIonChange={loadSucursal}
-                    value={Sucursal}
-                  >
-                    <IonSelectOption value="(Precio 3)">Testeraso</IonSelectOption>
-                    <IonSelectOption value="(Precio 2)">Guadalupe</IonSelectOption>
-                    <IonSelectOption value="(Precio 4)">Palmas</IonSelectOption>
-                    <IonSelectOption value="(Precio Lista)">Mayoreo</IonSelectOption>
-                  </IonSelect>
-                </IonItem>
-              </div>
-            </div>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonImg src="img/logo.png" className="w-24" />
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+        <section className="w-full relative max-w-2xl mx-auto shadow-2xl p-6 rounded-lg bg-white">
+          <IonItem className="flex flex-col md:flex-row md:items-center md:space-x-4">
+            <IonSearchbar
+              autoFocus={true}
+              value={query}
+              ref={inputRef}
+              onIonClear={Clear}
+              onKeyPress={e => SearchF(e.key)}
+              onIonInput={(event) => handleInput(event)}
+              aria-label="Buscar artículos"
+            />
+            <IonSelect
+              slot="start"
+              placeholder="Sucursal"
+              onIonChange={loadSucursal}
+              onKeyPress={Search}
+              value={sucursal}
+              className="w-full md:w-1/5"
+            >
+              <IonSelectOption value="(Precio 3)">Testeraso</IonSelectOption>
+              <IonSelectOption value="(Precio 2)">Guadalupe</IonSelectOption>
+              <IonSelectOption value="(Precio 4)">Palmas</IonSelectOption>
+              <IonSelectOption value="(Precio Lista)">Mayoreo</IonSelectOption>
+            </IonSelect>
+            <IonButton
+              slot="end"
+              type="button"
+              onClick={() => GetDataCode(query)}
+              className="w-full md:w-auto mt-2 md:mt-0"
+            >
+              <IonIcon icon={search} className="h-4 w-4 mr-2" />
+              Verificar
+            </IonButton>
+          </IonItem>
 
-            <div className="flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0 items-center">
-              <Controller
-                name="codigoBarras"
-                control={control}
-                rules={{ required: "El código de barras es obligatorio" }}
-                render={({ field }) => (
-                  <IonInput
-                    {...field}
-                    ref={inputRef}
-                    placeholder="Ingrese código de barras"
-                    onIonChange={(e) => {
-                      setValue("codigoBarras", e.detail.value!);
-                      field.onChange(e.detail.value!);
-                    }}
-                    className="border p-2 rounded w-full md:flex-1"
-                  />
-                )}
-              />
-              <IonButton type="submit" onClick={() => onSubmit} className="flex items-center justify-center w-full md:w-auto">
-                <IonIcon icon={search} className="h-4 w-4 mr-2" />
-                Verificar
-              </IonButton>
-            </div>
 
-            {errors.codigoBarras && (
-              <IonText color="danger">{errors.codigoBarras.message}</IonText>
-            )}
-          </form>
 
-          {/* Resultados de precios y ofertas */}
+          {query && results.length > 0 && (
+            <IonContent className="absolute w-full z-20 max-h-64 m-auto overflow-y-auto bg-white shadow-md rounded-lg">
+              <IonList>
+                {results.map((result, index) => (
+                  <IonItem key={index} button onClick={() => handleSelect(result)}>
+                    <span>{result.nombre}</span>
+                    <IonBadge slot="end" className="text-white mr-2">
+                      {result.unidad}
+                    </IonBadge>
+                    <IonBadge slot="end" className="text-white" color="success">
+                      ${result.precioTotal}
+                    </IonBadge>
+                  </IonItem>
+                ))}
+              </IonList>
+              <IonInfiniteScroll
+                onIonInfinite={(event) => loadMore(event)}>
+                <IonInfiniteScrollContent loadingSpinner="bubbles" />
+              </IonInfiniteScroll>
+            </IonContent>
+          )}
+
           <div className="text-center mt-4 py-2">
             <div className="flex flex-col py-2">
-              <span className="font-bold text-lg">{nombre}   <IonBadge slot="start">{unidad}</IonBadge></span>
+              <span className="font-bold text-lg">
+                {nombre} {unidad && <IonBadge>{unidad}</IonBadge>}
+              </span>
               <span className="text-3xl font-bold md:text-4xl">{precio}</span>
             </div>
           </div>
 
-          {/* Sección de Promociones (estática) */}
-          {ofertas && ofertas.length ? (<div className="space-y-2 mt-6">
-            <div className="flex items-center space-x-2">
-              <IonIcon icon={pricetagOutline} className="h-6 w-6 text-green-500" />
-              <span className="font-semibold text-base md:text-lg">Promociones</span>
-            </div>
-            <div className="border p-2 rounded w-full md:flex-1">
+          {ofertas.length > 0 && (
+            <div className="space-y-2 mt-6">
+              <div className="flex items-center space-x-2">
+                <IonIcon icon={pricetagOutline} className="h-6 w-6 text-green-500" />
+                <span className="font-semibold text-base md:text-lg">Promociones</span>
+              </div>
               <IonList className="p-2">
                 {ofertas.map((data: any, index) => (
-                  <IonItem key={index} className="text-2xl font-bold text-green-600">
+                  <IonItem key={index} className="text-xl font-bold text-green-600">
                     ${data.precioTotal}
                   </IonItem>
                 ))}
               </IonList>
             </div>
-          </div>) : (<></>)}
+          )}
 
-          {/* Mapa y Ubicación (estático) */}
+          {error && (
+            <div className="text-center text-red-600 mt-2">
+              <span>{error}</span>
+            </div>
+          )}
+
           <div className="relative h-48 bg-gray-200 rounded-lg overflow-hidden md:h-64 mt-6">
             <div className="absolute inset-0 flex items-center justify-center text-gray-500">
               Mapa de la tienda
             </div>
             <div className="absolute bottom-2 left-2 bg-white p-2 rounded-full shadow">
-              <IonIcon icon={pinOutline} className="h-6 w-6 text-red-500" />
+              <IonIcon icon={pinOutline} className="h-5 w-5 text-red-500 p-0" />
             </div>
           </div>
-
-          {/* Mensaje de error */}
-          {error && (
-            <IonText color="danger" className="error-message ion-card-content">
-              {error}
-            </IonText>
-          )}
-        </IonCardContent>
-      </IonCard>
-    </div>
+        </section>
+      </IonContent>
+    </IonPage >
   );
 }
+
+export default Test;
